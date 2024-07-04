@@ -1,5 +1,6 @@
 import { FC, useState } from 'react'
 import PriceButton from './priceButton/priceButton';
+import { controlBtn, numPerson, payBtn, paymentContainer, personContainer, personNumContainer, priceContainer, priceMark, totalPriceMark } from './priceContainer.css';
 
 type TPriceContainer = {
     limitPerson: number,
@@ -18,22 +19,32 @@ const PriceContainer : FC<TPriceContainer> = ({
     const plusLimitPerson = () => {limitPerson == 20 ? null : setLimitPerson(limitPerson + 1)}
     const minusLimitPerson = () => {limitPerson == 0 ? null : setLimitPerson(limitPerson - 1)}
 
-    return (<>
-        <section>
-            <h2>인원</h2>
-
-            <span onClick={minusLimitPerson}>-</span> 
-            <div>{limitPerson}</div>
-            <span onClick={plusLimitPerson}>+</span>
+    return (
+        <div className={paymentContainer}>
+        <section className ={personContainer}>
+            <h4>인원</h4>
+            <p></p> 
+            <div className = {personNumContainer}>
+                <button 
+                    onClick={minusLimitPerson}
+                    className = {controlBtn}>-</button> 
+                <div className = {numPerson}>{limitPerson}</div>
+                <button 
+                    onClick={plusLimitPerson}
+                    className = {controlBtn}>+</button>
+            </div>
+            
         </section>
-        <section>
-            <h2>Price</h2>
-            <div>{price*limitPerson}</div>
+        <section className={priceContainer}>
+            <h4 className = {priceMark}>Price    </h4>
+            <div className = {totalPriceMark}>{price*limitPerson}</div>
+            <div className={payBtn}>
+                <PriceButton
+                limitPerson = {limitPerson}
+                countPerson = {countPerson} />
+            </div>
         </section>
-        <PriceButton
-            limitPerson = {limitPerson}
-            countPerson = {countPerson} />
-        </>
+        </div>
     )
 }
 

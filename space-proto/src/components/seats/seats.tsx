@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { seatBox, selected } from "./seats.css"
+import { seatBox, seatContainer, selected } from "./seats.css"
 
 type TSeats = {
     countPerson : number,
@@ -33,19 +33,19 @@ const Seats : FC<TSeats> = (
     }
 
   return (
-      <div>
+      <div className={seatContainer}> 
           {seats.map((seat,index) => (
             <div key = {index}
-              onClick = {() => {
-                console.log(seat, index);
-                if(limitPerson > (countPerson/2) ){
-                  toggleSeat(index)
-                  setCountPerson(countPerson + 1)
-                } else {
-                  alert("인원 수를 확인해주세요.")
-                }}
-          }
-              className= {checkSelected(index) ? selected : seatBox}
+                onClick = {() => {
+                  console.log(seat, index);
+                  if(limitPerson > (countPerson/2) ){
+                    toggleSeat(index)
+                    setCountPerson(countPerson + 1)
+                  } else {
+                    alert("인원 수를 확인해주세요.")
+                  }}
+                  }
+                className= {checkSelected(index) ? selected : seatBox}
             >
             {seat}
             </div>          

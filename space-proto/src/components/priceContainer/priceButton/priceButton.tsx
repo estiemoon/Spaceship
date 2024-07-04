@@ -18,7 +18,9 @@ const PriceButton : FC<TPriceButton> = ({
         }
     }
   return (
-    <button onClick={isCorrectNumPerson}>결제하기</button>
+    <button 
+    onClick={isCorrectNumPerson}
+    >결제하기</button>
   )
 }
 
