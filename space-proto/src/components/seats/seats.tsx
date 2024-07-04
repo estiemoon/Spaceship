@@ -1,12 +1,14 @@
 import { FC, useState } from "react";
 import { seatBox, selected } from "./seats.css"
 
-interface SeatsProps {
-    countPerson : number
+type TSeats = {
+    countPerson : number,
+    limitPerson : number,
+    setCountPerson : (countPerson : number) => void
 }
 
-const Seats : FC<SeatsProps> = (
-    {countPerson}) => {
+const Seats : FC<TSeats> = (
+    {countPerson, limitPerson,setCountPerson}) => {
 
     const seats = [1,2,3,4,5,6,7,8,9,10];
     const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
@@ -31,16 +33,24 @@ const Seats : FC<SeatsProps> = (
     }
 
   return (
-    <div>
-        {seats.map((seat,index) => (
+      <div>
+          {seats.map((seat,index) => (
             <div key = {index}
-                onClick = {() => toggleSeat(index)}
-                className= {checkSelected(index) ? selected : seatBox}
+              onClick = {() => {
+                console.log(seat, index);
+                if(limitPerson > (countPerson/2) ){
+                  toggleSeat(index)
+                  setCountPerson(countPerson + 1)
+                } else {
+                  alert("인원 수를 확인해주세요.")
+                }}
+          }
+              className= {checkSelected(index) ? selected : seatBox}
             >
-                {seat}
-            </div>
-        ))}
-    </div>
+            {seat}
+            </div>          
+          ))}
+      </div>
   )
 }
 
